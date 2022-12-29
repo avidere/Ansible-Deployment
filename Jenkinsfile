@@ -89,6 +89,11 @@ pipeline {
                     ansiblePlaybook credentialsId: 'jenkins', installation: 'Ansible', inventory: 'inventory', playbook: 'tomcat.yaml'
                 }
         }*/
+        stage('Execute Ansible Play book on ansible Contol server'){
+            sshagent(['Ansible-Server']) {
+                sh 'ssh -o StrictHostKeyChecking=no jenkins@13.230.17.251 pwd'
+            }
+        }
     }
 }
 
