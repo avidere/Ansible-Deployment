@@ -5,7 +5,7 @@ pipeline {
     agent any
     environment {
         def git_branch = 'master'
-        def git_url = 'https://github.com/avidere/TomcatMavenApp.git'
+        def git_url = 'https://github.com/avidere/Ansible-Deployment.git'
 
         def mvntest = 'mvn test '
         def mvnpackage = 'mvn clean install'
@@ -58,7 +58,7 @@ pipeline {
                     waitForQualityGate abortPipeline: true, credentialsId: "${sonar_cred}"
                 }
             }
-        } */
+        } 
         stage('Upload Artifact to nexus repository') {
             steps {
                 script {
@@ -83,7 +83,7 @@ pipeline {
                     echo 'Artifact uploaded to nexus repository'
                 }
             }
-        } 
+        } */
         stage('Execute Ansible Playbook') {
                 steps {
                     ansiblePlaybook credentialsId: 'jenkins', installation: 'Ansible', inventory: 'inventory', playbook: 'tomcat.yaml'
