@@ -83,12 +83,7 @@ pipeline {
                     echo 'Artifact uploaded to nexus repository'
                 }
             }
-        } 
-        stage('Execute Ansible Playbook') {
-                steps {
-                    ansiblePlaybook credentialsId: 'jenkins', installation: 'Ansible', inventory: 'inventory', playbook: 'tomcat.yaml'
-                }
-        }*/
+        } */
         stage('Execute Ansible Play book on ansible Contol server'){
             steps{
                 sshagent(['Ansible-Server']) {
