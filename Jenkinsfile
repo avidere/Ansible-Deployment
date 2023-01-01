@@ -88,7 +88,7 @@ pipeline {
         stage('Copy playbook on ansible Contol server'){
             steps{
                 sshagent(['Ansible-Server']) {
-                            sh 'scp /var/lib/jenkins/workspace/Ansible_deployment -o StrictHostKeyChecking=no -l devops 52.68.2.186 /home/devops/'
+                            sh 'scp /workspace/Ansible_deployment -o StrictHostKeyChecking=no -l devops 52.68.2.186 /home/devops/'
                 }
             }
 
