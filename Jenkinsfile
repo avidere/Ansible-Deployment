@@ -88,7 +88,7 @@ pipeline {
         stage('Copy playbook on ansible Contol server'){
             steps{
                 sshagent(['Ansible-Server']) {
-                            sh 'scp  /var/lib/jenkins/workspace/Ansible_deployment/*  - r -o StrictHostKeyChecking=no -l devops 52.68.2.186 /home/devops/'
+                            sh 'scp  /var/lib/jenkins/workspace/Ansible_deployment/*  -o StrictHostKeyChecking=no -l devops 18.183.237.137 /home/devops/'
                 }
             }
 
@@ -97,7 +97,7 @@ pipeline {
             steps{
                 /* groovylint-disable-next-line DuplicateListLiteral */
                 sshagent(['Ansible-Server']) {
-                            sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 ansible-playbook tomcat.yaml'
+                            sh 'ssh -o StrictHostKeyChecking=no -l devops 18.183.237.137 ansible-playbook tomcat.yaml'
                 }
             }
 
