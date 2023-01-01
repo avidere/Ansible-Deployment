@@ -1,5 +1,27 @@
- - name: download artifact from nexus server
-   become: yes
-   get_url:
-     url: http://35.76.123.24:8081/repository/tomcat-SNAPSHOT/com/example/helloworld/1.0-SNAPSHOT/helloworld-1.0-20221227.115435-28.war
-     dest: /opt/tomcat/apache-tomcat-10.0.8/webapps
+     - name: Read an element's attribute values
+       community.general.xml:
+         path: /home/devops/bar.xml
+         xpath: /business/name
+         content: text
+       register: pom_version
+
+     - name: Set variable with extracted value
+       set_fact:
+         my_variable: "{{ pom_version.matches[0].name }}"
+
+     - name : display values
+       debug:
+         var: my_variable
+
+
+     - name: Download artifact from Nexus repository
+       maven_artifact:
+         group_id: "{{ group_id }}"
+         artifact_id: "{{ artifact_id }}"
+         version: "{{my_variable}}"
+         repository_url: "http://{{nexus_host}}/repository/demoproject-Release/"
+         dest: /home/devops
+       vars:
+         group_id: "com.example"
+         artifact_id: "springboot"
+         nexus_host: "35.78.217.218:8081"
