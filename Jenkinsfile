@@ -90,8 +90,7 @@ pipeline {
                 /* groovylint-disable-next-line DuplicateListLiteral */
                 sshagent(['Ansible-Server']) {
                             sh 'ssh -o StrictHostKeyChecking=no -l devops 18.183.237.137 git clone https://github.com/avidere/Ansible_playbook.git'
-                            sh 'ssh -o StrictHostKeyChecking=no -l devops 18.183.237.137 cd Ansible_playbook/'
-                            sh 'ssh -o StrictHostKeyChecking=no -l devops 18.183.237.137 ansible-playbook tomcat.yaml'
+                            sh 'ssh -o StrictHostKeyChecking=no -l devops 18.183.237.137 cd Ansible_playbook/ && ansible-playbook tomcat.yaml'
                 }
             }
 
