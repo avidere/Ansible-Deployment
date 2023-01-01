@@ -96,7 +96,7 @@ pipeline {
         stage('Execute Ansible Play book on ansible Contol server'){
             steps{
                 sshagent(['Ansible-Server']) {
-                            sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 git clone https://github.com/avidere/Ansible_playbook.git'
+                            sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 cd Ansible_playbook'
                             sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 ansible-playbook tomcat.yaml'
                 }
             }
