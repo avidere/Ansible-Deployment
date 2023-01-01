@@ -92,7 +92,7 @@ pipeline {
         stage('Execute Ansible Play book on ansible Contol server'){
             steps{
                 sshagent(['Ansible-Server']) {
-                            sh 'ssh -o StrictHostKeyChecking=no -l devops 13.230.17.251 ansible-playbook roles.yaml'
+                            sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 ansible-playbook roles.yaml'
                 }
             }
 
