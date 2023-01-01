@@ -85,23 +85,19 @@ pipeline {
             }
         } */
 
-        stage('Clone Ansible playbook on ansible Contol server'){
+        stage('Copy playbook on ansible Contol server'){
             steps{
                 sshagent(['Ansible-Server']) {
-                            sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 git clone https://github.com/avidere/Ansible_playbook.git'
+                            sh 'scp /var/lib/jenkins/workspace/Ansible_deployment -o StrictHostKeyChecking=no -l devops 52.68.2.186 /home/devops/'
                 }
             }
 
         }
         stage('Execute Ansible Play book on ansible Contol server'){
             steps{
+                /* groovylint-disable-next-line DuplicateListLiteral */
                 sshagent(['Ansible-Server']) {
-                            sh '''
-                            ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 
-                            cd Ansible_playbook
-                            ansible-playbook tomcat.yaml
-                            '''
-                           // sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 ansible-playbook tomcat.yaml'
+                            sh 'ssh -o StrictHostKeyChecking=no -l devops 52.68.2.186 ansible-playbook tomcat.yaml'
                 }
             }
 
