@@ -1,6 +1,6 @@
 ---
  - name: install tomcat and copy artifact
-   hosts: all
+   hosts: tomcat
    tasks:
      - name: import tomcat role
        import_role:
