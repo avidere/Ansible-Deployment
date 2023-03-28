@@ -9,15 +9,6 @@ pipeline {
 
         def mvntest = 'mvn test '
         def mvnpackage = 'mvn clean install'
-
-        def sonar_cred = 'sonar'
-        def code_analysis = 'mvn clean install sonar:sonar'
-        def utest_url = 'target/surefire-reports/**/*.xml'
-        def nex_cred = 'nexus'
-        def grp_ID = 'com.example'
-        def nex_url = '172.31.28.226:8081'
-        def nex_ver = 'nexus3'
-        def proto = 'http'
     }
     stages {
         stage('Git Checkout') {
@@ -42,33 +33,7 @@ pipeline {
                     echo 'Unit Testing Completed'
                 }
             }
-        } /*
-        stage('Upload Artifact to nexus repository') {
-            steps {
-                script {
-
-                    def mavenpom = readMavenPom file: 'pom.xml'
-                    def nex_repo = mavenpom.version.endsWith('SNAPSHOT') ? 'tomcat-SNAPSHOT' : 'tomact-Release'
-                    nexusArtifactUploader artifacts: [
-                    [
-                        artifactId: 'helloworld',
-                        classifier: '',
-                        file: "target/helloworld.war",
-                        type: 'war'
-                    ]
-                ],
-                    credentialsId: "${env.nex_cred}",
-                    groupId: "${env.grp_ID}",
-                    nexusUrl: "${env.nex_url}",
-                    nexusVersion: "${env.nex_ver}",
-                    protocol: "${env.proto}",
-                    repository: "${nex_repo}",
-                    version: "${mavenpom.version}"
-                    echo 'Artifact uploaded to nexus repository'
-                }
-            }
-        } */
-
+        }
         stage('Deploy Application using Ansible'){
             steps{
                 /* groovylint-disable-next-line DuplicateListLiteral */
