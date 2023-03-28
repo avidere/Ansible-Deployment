@@ -73,7 +73,7 @@ pipeline {
             steps{
                 /* groovylint-disable-next-line DuplicateListLiteral */
                 script{
-                  sh "  Ansible-playbook tomcat.yaml --check "
+                  sh "  ansible-playbook tomcat.yaml --check "
                 }
             }
 

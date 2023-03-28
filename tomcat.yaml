@@ -107,19 +107,13 @@
 
         After=network.target
 
-
-
         [Service]
 
         Type=forking
 
-
-
         User=root
 
         Group=root
-
-
 
         Environment="JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64"
 
@@ -132,17 +126,9 @@
         Environment="CATALINA_PID=/opt/tomcat/apache-tomcat-10.0.8/temp/tomcat.pid"
 
         Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
-
-
-
         ExecStart=/opt/tomcat/apache-tomcat-10.0.8/bin/startup.sh
-
         ExecStop=/opt/tomcat/apache-tomcat-10.0.8/bin/shutdown.sh
-
-
-
         [Install]
-
         WantedBy=multi-user.target
        dest: /etc/systemd/system/tomcat.service
 
@@ -152,3 +138,18 @@
         name: tomcat
         state: started
         daemon_reload: true
+    
+    - name: Copy Artifact 
+      copy:
+        src: /var/lib/jenkins/workspace/Ansible-Deployment/target/helloworld.war
+        dest: /opt/tomcat/apache-tomcat-10.0.8/webapps/
+        owner: jenkins
+        group: jenkins
+        mode: 0644        
+
+    - name: Start and Enable Tomcat on sever
+      become: yes
+      systemd:
+        name: tomcat
+        state: restarted
+        daemon_reload: true        
