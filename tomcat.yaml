@@ -14,7 +14,6 @@
         name: openjdk-11-jdk
         state: present
 
-
     - name: Create a Tomcat Directory
       become: yes
       file:
