@@ -9,8 +9,8 @@ pipeline {
 
         def mvntest = 'mvn test '
         def mvnpackage = 'mvn clean install'
-        def VAULT_CREDS=  credentials("${vault_id}")
-        def FILE = 'secret.txt'
+        VAULT_CREDS=  credentials("${VAULT_ID}")
+        FILE = 'secret.txt'
     }
     stages {
         stage('Git Checkout') {
