@@ -35,3 +35,11 @@
       shell: nohup ./startup.sh
       args:
         chdir: /opt/apache-tomcat-8.5.87/bin
+    
+    - name: copy artifact from jenkins server to Ansible control server
+      copy:
+        src: /var/lib/jenkins/workspace/Ansible-Deployment/target/helloworld.war
+        dest: /opt/tomcat/apache-tomcat-8.5.87/webapps/
+        owner: jenkins
+        group: jenkins
+        mode: 0777 
