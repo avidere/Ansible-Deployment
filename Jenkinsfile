@@ -36,13 +36,14 @@ pipeline {
         }
         stage('Deploy Application using Ansible'){
             steps{
+                withCredentials([file(credentialsId: 'vault_id', variable: 'vault_id')]) {
                 /* groovylint-disable-next-line DuplicateListLiteral */
                 script{
                   //sh "  ansible-playbook tomcat.yaml -i hosts "
-                  sh " ansible-playbook ansible_vault.yaml --check --vault-password-file secret.txt"
+                  sh " ansible-playbook ansible_vault.yaml --check --vault-id vault_id"
                 }
             }
-
+         }
         }
     }
 }
