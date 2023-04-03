@@ -4,6 +4,7 @@
   become: yes
   tasks:
     - name: install java on Debian Distribution
+      become_user: jenkins
       apt:
         name: default-jdk
         state: present
