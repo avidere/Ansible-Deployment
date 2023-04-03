@@ -45,9 +45,7 @@ pipeline {
                   sh " ansible-playbook ansible_vault.yaml --check --vault-password-file secret.txt"
                 }
             }
-         
-        }
-        post {
+            post {
                 always {
                     //check for secret.txt and remove if it exists
                     sh '''#!/bin/sh
@@ -57,5 +55,8 @@ pipeline {
                     '''
                 }
            }
-       }
+         
+        }
+ 
+    }
 
