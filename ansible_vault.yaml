@@ -1,0 +1,41 @@
+---
+- name: clone private git repository using ansible vault
+  hosts: all
+  vars_files:
+    - pass.yaml
+    - user.yaml
+  tasks:
+    - name: Create new user {{ u_name }}
+      become: yes
+      user:
+        name: "{{ u_name }}"
+      ignore_errors: true
+
+    - name: install git on Debian Distribution
+      become: yes
+      apt:
+        name: git
+        state: present
+      when: ansible_os_family == "Debian"
+      ignore_errors: true
+
+
+    - name: install git on RedHat Distribution
+      become: yes
+      yum:
+        name: git
+        state: present
+      when: ansible_os_family == "RedHat"
+      ignore_errors: true
+
+    - name: Clone private git repository
+      git:
+        repo: https://avidere:{{ pass }}@github.com/avidere/Ansible-Deployment.git
+        dest: /home/jenkins
+
+    - name: create file using created {{ u_name }}
+      become_user: "{{ u_name }}"
+      file:
+        path: /home/abc/demo.txt
+        state: touch
+        mode: u=rwx,g=rw,o=r
