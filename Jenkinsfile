@@ -9,6 +9,8 @@ pipeline {
 
         def mvntest = 'mvn test '
         def mvnpackage = 'mvn clean install'
+        def VAULT_CREDS=  credentials("${vault_id}")
+        def FILE = 'secret.txt'
     }
     stages {
         stage('Git Checkout') {
@@ -36,15 +38,24 @@ pipeline {
         }
         stage('Deploy Application using Ansible'){
             steps{
-                withCredentials([file(credentialsId: 'vault_id', variable: 'vault_id')]) {
                 /* groovylint-disable-next-line DuplicateListLiteral */
                 script{
-                  //sh "  ansible-playbook tomcat.yaml -i hosts "
-                  sh " ansible-playbook ansible_vault.yaml --check --vault-id vault_id"
+                  sh "echo '${VAULT_CREDS_PSW}' > secret.txt"
+                  sh "  ansible-playbook setup_tomcat.yaml  "
+                  sh " ansible-playbook ansible_vault.yaml --check --vault-password-file secret.txt"
                 }
             }
-         }
+         
         }
-    }
-}
+        post {
+                always {
+                    //check for secret.txt and remove if it exists
+                    sh '''#!/bin/sh
+                        if [ -f $FILE ] ; then
+                        rm $FILE
+                        fi
+                    '''
+                }
+           }
+       }
 
