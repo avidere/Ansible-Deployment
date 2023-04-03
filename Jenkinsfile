@@ -4,7 +4,7 @@
 pipeline {
     agent any
     environment {
-        def git_branch = 'main'
+        def git_branch = 'feature'
         def git_url = 'https://github.com/avidere/Ansible-Deployment.git'
 
         def mvntest = 'mvn test '
