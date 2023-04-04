@@ -9,12 +9,11 @@
       become: yes
       user:
         name: "{{ u_name }}"
-      ignore_errors: true
 
     - name: install git on Debian Distribution
       become: yes
       apt:
-        name: git
+        name: giit
         state: present
       when: ansible_os_family == "Debian"
       ignore_errors: true
@@ -26,7 +25,6 @@
         name: git
         state: present
       when: ansible_os_family == "RedHat"
-      ignore_errors: true
 
     - name: Clone private git repository
       git:

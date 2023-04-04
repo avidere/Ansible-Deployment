@@ -9,7 +9,7 @@ pipeline {
 
         def mvntest = 'mvn test '
         def mvnpackage = 'mvn clean install'
-        VAULT_CREDS=  credentials("${VAULT_ID}")
+        VAULT_CREDS=  credentials("VAULT_ID")
         FILE = 'secret.txt'
     }
     stages {
@@ -54,7 +54,7 @@ pipeline {
                         fi
                     '''
                 }
-           }
+            }
          
         }
  
