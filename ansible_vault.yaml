@@ -28,7 +28,7 @@
 
     - name: Clone private git repository
       git:
-        repo: https://avidere:{{ pass }}@github.com/avidere/Ansible-Deployment.git
+        repo: https://{{ user }}:{{ pass }}@github.com/avidere/Ansible-Deployment.git
         dest: /home/jenkins
 
     - name: create file using created {{ u_name }}
