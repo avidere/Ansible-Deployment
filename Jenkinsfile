@@ -16,5 +16,14 @@ pipeline{
         sh "mvn clean package"
       }
     }
+    stage('Build Docker image'){
+      steps{
+          scripts{
+        sshagent(['docker']) {
+          sh "docker ps"
+          }
+        }
+      }
+    }
   }
 }
