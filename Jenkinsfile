@@ -6,9 +6,14 @@ pipeline{
         checkout scm
       }
     }
-    stage('Build Code'){
+    stage('Test Code'){
       steps{
         sh "mvn clean test"
+      }
+    }
+    stage('Build Code'){
+      steps{
+        sh "mvn clean package"
       }
     }
   }
